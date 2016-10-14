@@ -3,24 +3,19 @@ object Test{
   def main(args: Array[String])
   {
   	//Read the count of elements.
-  	println("Enter the List count: ");
-  	var count1=Console.readInt;
-  	var list = new Array[Int](count1)
-  	
-  	//Read the elements.
-  	for(a <- 0 to (count1-1))
- 	{
- 		println("Enter the List element "+ (a+1));
-  		list(a)=Console.readInt;
-  	}
-  	
+  	println("Enter the List Elements separated by spaces ");
+  	//object.map(*) parses stuff to type *. Gotta look into what * could be.
+	var list=readLine.split(" ").map(_.toInt)
+
   	//Sort the list using Quicksort.
   	scala.util.Sorting.quickSort(list)
+	//Thank god for libraries.
   	println("\n\n");
   	for(a <- 0 to (count1-1))
  		println("Element: "+ (a+1) + " ---->  "+ list(a));
   	
  	println("\n\nEnter element to search : ");
+	//Console for input interactions only???
   	var j = Console.readInt;
   	var i = binarySearchIterative(list, j);
   	var k = binarySearchRecursive(list, 0, (count1-1), j);
@@ -29,7 +24,8 @@ object Test{
   	else
     		println("\nElement found at position "+ (i+1));
   }
-
+//functions are defined as=> def fname(varname: vartype) : return type = {}
+//functions without returns => def fname(varname: vartype) {}
 def binarySearchIterative(list: Array[Int], target: Int) : Int = {
   var left = 0;
   var right = list.length-1;
