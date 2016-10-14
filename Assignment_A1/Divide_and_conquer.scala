@@ -1,19 +1,78 @@
-import scala.annotation.tailrec
-object BinarySearcher {
-    def search(target:Int, l:List[Int]) = { // binary search function
-        @tailrec
-        def recursion(low:Int, high:Int):Integer = (low+high)/2 match {
-            case _ if high < low => -1;
-            case mid if l(mid) > target => recursion(low, mid-1);
-            case mid if l(mid) < target => recursion(mid+1, high);
-            case mid => mid;
-        }
-        recursion(0,l.size - 1);
-    }
+object Test{
+  
+  def main(args: Array[String])
+  {
+  	//Read the count of elements.
+  	println("Enter the List count: ");
+  	var count1=Console.readInt;
+  	var list = new Array[Int](count1)
+  	
+  	//Read the elements.
+  	for(a <- 0 to (count1-1))
+ 	{
+ 		println("Enter the List element "+ (a+1));
+  		list(a)=Console.readInt;
+  	}
+  	
+  	//Sort the list using Quicksort.
+  	scala.util.Sorting.quickSort(list)
+  	println("\n\n");
+  	for(a <- 0 to (count1-1))
+ 		println("Element: "+ (a+1) + " ---->  "+ list(a));
+  	
+ 	println("\n\nEnter element to search : ");
+  	var j = Console.readInt;
+  	var i = binarySearchIterative(list, j);
+  	var k = binarySearchRecursive(list, 0, (count1-1), j);
+  	if(i== (-1) && k== (-1))
+    		println("\nElement Not Found");
+  	else
+    		println("\nElement found at position "+ (i+1));
+  }
+
+def binarySearchIterative(list: Array[Int], target: Int) : Int = {
+  var left = 0;
+  var right = list.length-1;
+  while(left <= right)
+  {
+    val mid = left + (right-left)/2;
+    // If the element is present at the middle itself
+    if(list(mid)==target)
+      return mid;
+      
+    // If element is smaller than mid, then it can only be present in left subarray
+    else if (list(mid)>target)
+      right = mid - 1;
+      
+    // Else the element can only be present in right subarray
+    else
+      left = mid + 1;
+  }
+  
+  // We reach here when element is not present in array
+  -1
 }
 
-val l = List(1,2,4,5,6,8,9,25,31);
-print("Current List: "); println(l);
-print("Search Element 5: "); println(BinarySearcher.search(5, l));
-print("Search Element 6: "); println(BinarySearcher.search(6, l));
-print("Search Element 99: "); println(BinarySearcher.search(99, l));
+def binarySearchRecursive(list: Array[Int], l: Int, r: Int, target: Int) : Int ={
+	
+	if (r >= l)
+   	{
+        val mid = l + (r - l)/2;
+ 
+        // If the element is present at the middle itself
+        if (list(mid) == target)  
+        	return mid;
+ 
+        // If element is smaller than mid, then it can only be present in left subarray
+        if (list(mid) > target) 
+        	return binarySearchRecursive(list, l, mid-1, target);
+ 
+        // Else the element can only be present in right subarray
+        return binarySearchRecursive(list, mid+1, r, target);
+    }
+ 
+   // We reach here when element is not present in array
+   -1;
+}
+
+}
