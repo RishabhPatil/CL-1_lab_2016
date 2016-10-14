@@ -13,13 +13,19 @@ public:
         j= high_index;
         while(1) {
             while(i < high_index && key >= arr[i]) i++;
+            //K#########i##########j
+            //smaller<-|i
             while(key < arr[j]) j--;
-
+            //Ki###########j########
+            //              |->larger than Kth
+            // now ith and jth are swapped
+            // process continues till j<i i.e. j and i cross
             if(i < j) {
                 temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
             } else {
+                //now swap key with j, key is now in its sorted position, need to sort left and right separately
                 temp= arr[low_index];
                 arr[low_index] = arr[j];
                 arr[j]= temp;
@@ -35,9 +41,9 @@ public:
             j = partition(arr, low_index, high_index);
             cout<<"Pivot element with index "<<j<<" has been found out by thread "<<k<<"\n";
 
-            #pragma omp parallel sections
+            #pragma omp parallel sections //remember
             {
-                #pragma omp section
+                #pragma omp section//remember
                 {
                     k=k+1;
                     quicksort(arr, low_index, j - 1);
