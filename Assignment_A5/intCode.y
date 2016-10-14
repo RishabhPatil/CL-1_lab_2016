@@ -1,4 +1,4 @@
-%{
+%{ //REMEMBER
     #include<stdio.h>
     #include<string.h>
     #include<stdlib.h>    
@@ -35,9 +35,9 @@
     char *items[10];
     int top;
   }Stk;
-%}
+%} //REMEMBER
 
-%union 
+%union //REMEMBER
 {
     int ival;           
     double dval;
@@ -53,8 +53,8 @@
 %token MAIN
 %left '+' '-'
 %left '*' '/'
-%%
-program:MAIN '('')''{' body '}'
+%% //REMEMBER
+program:MAIN '('')''{' body '}' //SEE GRAMMAR PLOX
 ;
 body: varstmt stmtlist 
 ;
@@ -192,8 +192,8 @@ expr :expr '+' expr             {
                     
 }
 ;
-%%
-extern FILE *yyin;
+%% //REMEMBER
+extern FILE *yyin; //REMEMBER
 int main()
 {
     
@@ -250,7 +250,7 @@ void display_Quadruple()
   for(i=0;i<Index;i++)
     printf("\n %d     %s          %s          %s          %s",i,QUAD[i].result,QUAD[i].operator,QUAD[i].operand1,QUAD[i].operand2);
 }
-int yyerror()
+int yyerror() //REMEMBER
 {
    printf("\nERROR!!\n");
    return(1);
